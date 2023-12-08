@@ -1,2 +1,3 @@
-.vscode/
-puzzle_input.txt
+*
+!*.cpp
+!*.h
