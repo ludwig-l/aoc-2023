@@ -68,7 +68,7 @@ int main(int argc, char **argv)
         text_file.seekg(0);
 
         // just go through the file several times for each seed
-        int iteration = 0;
+        unsigned int iteration = 0;
         for (std::vector<unsigned long long>::iterator it_seed_number = seed_numbers.begin(); it_seed_number < seed_numbers.end(); it_seed_number++) {
             std::cout << "Check iteration " << iteration << '\n';
 
@@ -361,7 +361,7 @@ int main(int argc, char **argv)
     */
 
     std::cout << "Location values:\n";
-    for (int i = 0; i < seed_numbers.size(); i++) {
+    for (size_t i = 0; i < seed_numbers.size(); i++) {
         std::cout << "Seed number: " << seed_numbers[i] << " -> Location number: " << location_numbers[i] << '\n';
     }
     std::cout << "Lowest location number: " << *std::min_element(location_numbers.begin(), location_numbers.end()) << '\n';

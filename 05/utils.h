@@ -35,7 +35,6 @@ namespace Utils {
 
         bool is_destination_range_start_set = false;
         bool is_source_range_start_set = false;
-        bool is_range_length_set = false;
         unsigned long long destination_range_start = 0;
         unsigned long long source_range_start = 0;
         unsigned long long range_length = 0;
@@ -60,7 +59,6 @@ namespace Utils {
                 if (is_destination_range_start_set && is_source_range_start_set) {
                     range_length = stoll(current_str);
                     current_str.clear();
-                    is_range_length_set = true;
                 }
             }
         }
