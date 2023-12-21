@@ -39,7 +39,6 @@ int main(int argc, char** argv) {
             char_occurences[c] = 0;
         }
         camel_cards.count_occurences_of_characters(char_occurences, hand);
-        std::cout << "Check\n";
 
 
         CamelCards::HandType hand_type;
