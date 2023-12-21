@@ -135,6 +135,7 @@ void CamelCards::sort_cards_by_type()
 void CamelCards::sort_cards_by_second_ordering_rule()
 {
     // for starters just go through all the entries and compare two neighboring ones at a time
+    // (using a Bubble Sort like in-place sorting algorithm, definitely not the most efficient one)
     
     for (auto it = _hands_bids_types.begin(); it < _hands_bids_types.end(); it++) {
 
