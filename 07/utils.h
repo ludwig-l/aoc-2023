@@ -77,7 +77,7 @@ bool CamelCards::is_full_house(const std::map<char, unsigned int>& char_occurenc
     }
     for (auto it = char_occurences.begin(); it != char_occurences.end(); ++it) {
         if (it->second == 2) {
-            found_triple = true;
+            found_double = true;
         }
     }
 
