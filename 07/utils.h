@@ -151,8 +151,10 @@ void CamelCards::sort_cards_by_second_ordering_rule()
         int higher_hand = this->compare_hands_by_second_ordering_rule(std::get<0>(*it), std::get<0>(*(it+1)));
 
         // switch current and next element if the next element has a lower card rank
+        // reset iterator to start
         if (higher_hand == 0) {
             std::swap(*it, *(it+1));
+            it = _hands_bids_types.begin() - 1; // -1 because in the next iteration the iterator will be incremented again
         }
 
     }
