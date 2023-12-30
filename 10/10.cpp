@@ -190,5 +190,62 @@ int main(int argc, char** argv)
     std::cout << "Check\n";
 
     // search for the two possible directions at the beginning
-    // need to find the starting point in the whole map at first (there should be only one starting point)
+    // need to find the starting point in the whole map at first (there should be only one starting point in the whole map)
+    int start_pos_row = 0;
+    int start_pos_col = 0;
+    for (; start_pos_row < diagram[0].size(); start_pos_row++) {
+        auto res = std::find(diagram[start_pos_row].begin(), diagram[start_pos_row].end(), TILE_START);
+        if (res != diagram[start_pos_row].end()) {
+            //start_pos_col = *res;
+            start_pos_col = res - diagram[start_pos_row].begin();
+            break;
+        }
+    }
+
+    // now search for the two directions where there are connections
+    std::vector<std::pair<int, int>> possible_directions = {};
+    char symbol = TILE_DUMMY;
+
+    // north
+    if (start_pos_row - 1 >= 0) {
+        std::pair<int, int> pos_north = std::make_pair(start_pos_row - 1, start_pos_col);
+        symbol = diagram[std::get<0>(pos_north)][std::get<1>(pos_north)];
+        if (symbol == TILE_VERT || symbol == TILE_SOUTH_WEST || symbol == TILE_SOUTH_WEST) {
+            possible_directions.push_back(pos_north);
+        }
+    }
+
+    // east
+    if (start_pos_col + 1 <= diagram[start_pos_col].size()) {
+        std::pair<int, int> pos_east = std::make_pair(start_pos_row, start_pos_col + 1);
+        symbol = diagram[std::get<0>(pos_east)][std::get<1>(pos_east)];
+        if (symbol == TILE_HOR || symbol == TILE_NORTH_WEST || symbol == TILE_SOUTH_WEST)
+        {
+            possible_directions.push_back(pos_east);
+        }
+    }
+
+    // south
+    if (start_pos_row + 1 <= diagram.size()) {
+        std::pair<int, int> pos_south = std::make_pair(start_pos_row + 1, start_pos_col);
+        symbol = diagram[std::get<0>(pos_south)][std::get<1>(pos_south)];
+        if (symbol == TILE_VERT || symbol == TILE_NORTH_EAST || symbol == TILE_NORTH_WEST) {
+            possible_directions.push_back(pos_south);
+        }
+    }
+
+    // west
+    if (start_pos_col - 1 >= 0) {
+        std::pair<int, int> pos_west = std::make_pair(start_pos_row, start_pos_col - 1);
+        symbol = diagram[std::get<0>(pos_west)][std::get<1>(pos_west)];
+        if (symbol == TILE_VERT || symbol == TILE_NORTH_EAST || symbol == TILE_NORTH_WEST) {
+            possible_directions.push_back(pos_west);
+        }
+    }
+
+    if (possible_directions.size() != 2) {
+        std::cout << "Number of possible directions should be 2, is " << possible_directions.size() << '\n';
+    }
+
+    std::cout << "Finished\n";
 }
