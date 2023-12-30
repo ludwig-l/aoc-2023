@@ -35,7 +35,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
@@ -48,7 +47,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
@@ -61,7 +59,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
@@ -74,7 +71,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
@@ -87,7 +83,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
@@ -100,7 +95,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
         else {
             std::cout << "This should not happen...\n";
-            return;
         }
     }
 
