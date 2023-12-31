@@ -27,11 +27,11 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
     // check what the current tile type and based on that decide for the next position
 
     if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_VERT) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
-            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
+        if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
+            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
         }
-        else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1)) {
-            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
+        else if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
+            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
         }
         else {
             std::cout << "This should not happen...\n";
@@ -39,22 +39,10 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
     }
 
     if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_HOR) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
+        if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
+            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
         }
-        else if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
-        }
-        else {
-            std::cout << "This should not happen...\n";
-        }
-    }
-
-    if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_NORTH_EAST) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
-        }
-        else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
+        else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1)) {
             next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
         }
         else {
@@ -62,12 +50,24 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
         }
     }
 
+    if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_NORTH_EAST) {
+        if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
+            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
+        }
+        else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
+            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
+        }
+        else {
+            std::cout << "This should not happen...\n";
+        }
+    }
+
     if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_NORTH_WEST) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
+        if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
+            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
         }
         else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1)) {
-            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
+            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
         }
         else {
             std::cout << "This should not happen...\n";
@@ -75,11 +75,11 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
     }
 
     if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_SOUTH_WEST) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
+        if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
+            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
         }
         else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1)) {
-            next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)-1);
+            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
         }
         else {
             std::cout << "This should not happen...\n";
@@ -87,10 +87,10 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
     }
 
     if (diagram[std::get<0>(cur_pos)][std::get<1>(cur_pos)] == TILE_SOUTH_EAST) {
-        if (last_pos == std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos))) {
-            next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
+        if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
+            next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
         }
-        else if (last_pos == std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1)) {
+        else if (last_pos == std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos))) {
             next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
         }
         else {
