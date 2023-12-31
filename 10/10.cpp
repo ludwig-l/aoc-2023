@@ -204,7 +204,7 @@ int main(int argc, char** argv)
     if (start_pos_row - 1 >= 0) {
         std::pair<int, int> pos_north = std::make_pair(start_pos_row - 1, start_pos_col);
         symbol = diagram[std::get<0>(pos_north)][std::get<1>(pos_north)];
-        if (symbol == TILE_VERT || symbol == TILE_SOUTH_WEST || symbol == TILE_SOUTH_WEST) {
+        if (symbol == TILE_VERT || symbol == TILE_SOUTH_WEST || symbol == TILE_SOUTH_EAST) {
             possible_directions.push_back(pos_north);
         }
     }
@@ -232,7 +232,7 @@ int main(int argc, char** argv)
     if (start_pos_col - 1 >= 0) {
         std::pair<int, int> pos_west = std::make_pair(start_pos_row, start_pos_col - 1);
         symbol = diagram[std::get<0>(pos_west)][std::get<1>(pos_west)];
-        if (symbol == TILE_VERT || symbol == TILE_NORTH_EAST || symbol == TILE_NORTH_WEST) {
+        if (symbol == TILE_HOR || symbol == TILE_NORTH_EAST || symbol == TILE_NORTH_WEST) {
             possible_directions.push_back(pos_west);
         }
     }
