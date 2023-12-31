@@ -34,7 +34,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_VERT: This should not happen...\n";
         }
     }
 
@@ -46,7 +46,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_HOR: This should not happen...\n";
         }
     }
 
@@ -58,7 +58,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_NORTH_EAST: This should not happen...\n";
         }
     }
 
@@ -70,7 +70,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos)-1, std::get<1>(cur_pos));
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_NORTH_WEST: This should not happen...\n";
         }
     }
 
@@ -82,7 +82,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos)+1, std::get<1>(cur_pos));
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_SOUTH_WEST: This should not happen...\n";
         }
     }
 
@@ -94,7 +94,7 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
             next_pos = std::make_pair(std::get<0>(cur_pos), std::get<1>(cur_pos)+1);
         }
         else {
-            std::cout << "This should not happen...\n";
+            std::cout << "TILE_SOUTH_EAST: This should not happen...\n";
         }
     }
 
