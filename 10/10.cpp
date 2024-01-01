@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 
 const std::string INPUT_FILE = "test_input.txt";
