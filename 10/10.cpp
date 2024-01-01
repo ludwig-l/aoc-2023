@@ -100,61 +100,6 @@ std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::str
     }
 
     return next_pos;
-
-    /*
-    // map with character
-    std::map<std::string, char> neighboring_chars = {
-        {"north", TILE_DUMMY},
-        {"east", TILE_DUMMY},
-        {"south", TILE_DUMMY},
-        {"west", TILE_DUMMY},
-    };
-    for (std::pair<std::string, char> dir_and_char : neighboring_chars) {
-        std::pair<int, int> new_pos; // not defined as unsigned int because it can also take on negative values (these will be marked as "out of field" values later)
-        if (std::get<0>(dir_and_char) == "north") {
-            new_pos = std::make_pair(std::get<0>(from_pos), std::get<1>(from_pos) - 1);
-            if (diagram[std::get<0>(new_pos)][std::get<1>(new_pos)] == TILE_VERT) {
-                ;
-            }
-            if (diagram[std::get<0>(new_pos)][std::get<1>(new_pos)] == TILE_SOUTH_WEST) {
-                ;
-            }
-            if (diagram[std::get<0>(new_pos)][std::get<1>(new_pos)] == TILE_SOUTH_EAST) {
-                ;
-            }
-        }
-        if (std::get<0>(dir_and_char) == "east") {
-            new_pos = std::make_pair(std::get<0>(from_pos) + 1, std::get<1>(from_pos));
-        }
-        if (std::get<0>(dir_and_char) == "south") {
-            new_pos = std::make_pair(std::get<0>(from_pos), std::get<1>(from_pos) + 1);
-        }
-        if (std::get<0>(dir_and_char) == "west") {
-            new_pos = std::make_pair(std::get<0>(from_pos) - 1, std::get<1>(from_pos));
-        }
-        else {
-            std::cout << "Error\n";
-        }
-
-        if ((std::get<0>(new_pos) == std::get<0>(from_pos)) && (std::get<1>(new_pos) == std::get<1>(from_pos))) {
-            std::get<1>(dir_and_char) = TILE_PREV_MARKER;
-        }
-
-
-        // TODO:
-        // catch non-legal positions (e.g. such that are out of the diagram) and mark them with a fitting character
-
-        std::get<1>(dir_and_char) = diagram[std::get<0>(new_pos)][std::get<1>(new_pos)];
-    }
-
-
-    // possibilities:
-    // (from_x + 1, from_y)
-    // (from_x, from_y + 1)
-    // (from_x - 1, from_y)
-    // (from_x, from_y - 1)
-    if (diagram[std::get<0>(from_pos)+1][std::get<1>(from_pos)] )
-    */
 }
 
 
