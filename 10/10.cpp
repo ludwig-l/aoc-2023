@@ -17,8 +17,6 @@ const char TILE_SOUTH_EAST = 'F';
 const char TILE_GROUND = '.';
 const char TILE_START = 'S';
 const char TILE_DUMMY = '*';
-const char TILE_OUT_OF_FIELD = 'X';
-const char TILE_PREV_MARKER = 'P';
 
 
 std::pair<unsigned int, unsigned int> go_to_next_tile(const std::vector<std::string>& diagram, const std::pair<unsigned int, unsigned int>& last_pos, const std::pair<unsigned int, unsigned int>& cur_pos)
