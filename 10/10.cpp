@@ -6,8 +6,8 @@
 #include <algorithm>
 
 
-const std::string INPUT_FILE = "test_input.txt";
-//const std::string INPUT_FILE = "puzzle_input.txt";
+//const std::string INPUT_FILE = "test_input.txt";
+const std::string INPUT_FILE = "puzzle_input.txt";
 const char TILE_VERT = '|';
 const char TILE_HOR = '-';
 const char TILE_NORTH_EAST = 'L';
