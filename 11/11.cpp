@@ -84,14 +84,20 @@ int main(int argc, char** argv)
    }
 
    std::vector<std::pair<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>>> galaxy_pairs = {};
+   unsigned int count_1 = 0;
    for (auto galaxy_1 : galaxy_locations) {
+       unsigned int count_2 = 0;
        for (auto galaxy_2 : galaxy_locations) {
            if ( // avoid adding duplicate pair entries by these checks
                (galaxy_1 != galaxy_2) &&
                (std::find(galaxy_pairs.begin(), galaxy_pairs.end(), std::make_pair(galaxy_1, galaxy_2)) == galaxy_pairs.end()) &&
-               (std::find(galaxy_pairs.begin(), galaxy_pairs.end(), std::make_pair(galaxy_2, galaxy_1)) == galaxy_pairs.end()))
+               (std::find(galaxy_pairs.begin(), galaxy_pairs.end(), std::make_pair(galaxy_2, galaxy_1)) == galaxy_pairs.end())) {
                galaxy_pairs.push_back(std::make_pair(galaxy_1, galaxy_2));
+           }
+           std::cout << count_1 << " / " << galaxy_locations.size() << " | " << count_2 << " / " << galaxy_locations.size() << '\n';
+           count_2++;
        }
+       count_1++;
    }
 
    // calculate shortest lengths
