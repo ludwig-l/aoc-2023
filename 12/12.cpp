@@ -1,27 +1,45 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
+#include "spring_arrangement.h"
 
 
 const std::string INPUT_FILE = "test_input.txt";
 //const std::string INPUT_FILE = "puzzle_input.txt";
-const char CHAR_OPERATIONAL = '#';
-const char CHAR_DAMAGED = '.';
-const char CHAR_UNKNOWN = '?';
 
 
 int main(int argc, char** argv)
 {
-    std::vector<std::string> arrangements = {};
+    std::vector<SpringArrangement> arrangements = {};
     std::ifstream text_file(INPUT_FILE);
 
     for (std::string line; std::getline(text_file, line);) {
 
         std::cout << line << '\n';
 
-        arrangements.push_back(line);
+        // separate values by white space
+        std::istringstream string_stream(line);
+        std::string springs = "";
+        std::vector<unsigned int> group_sizes = {};
+        for (std::string element; std::getline(string_stream, element, ' ');) {
+
+            if (springs == "") {
+                springs = element;
+            }
+            else if (group_sizes.empty()) {
+                // split by commas characters and append them to a vector, then save to variable
+                std::istringstream string_stream_2(element);
+                for (std::string str; std::getline(string_stream_2, str, ',');) {
+                    group_sizes.push_back(std::stoi(str));
+                }
+            }
+        }
+        arrangements.push_back(SpringArrangement(springs, group_sizes));
     }
+
+    std::cout << "Check\n";
 
     // find the number of possible arrangements
     // ...
