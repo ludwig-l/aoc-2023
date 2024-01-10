@@ -6,8 +6,8 @@
 #include "spring_arrangement.h"
 
 
-const std::string INPUT_FILE = "test_input.txt";
-//const std::string INPUT_FILE = "puzzle_input.txt";
+//const std::string INPUT_FILE = "test_input.txt";
+const std::string INPUT_FILE = "puzzle_input.txt";
 
 
 int main(int argc, char** argv)
