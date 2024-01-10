@@ -9,6 +9,7 @@
 #include <cmath>
 #include <bitset>
 #include <cassert>
+#include <numeric>
 
 
 class SpringArrangement {
@@ -17,6 +18,8 @@ class SpringArrangement {
         std::string _springs;
         std::vector<unsigned int> _group_sizes;
         std::vector<std::string> _arrangement_combinations;
+        std::vector<std::string> _possible_arrangement_combinations;
+        unsigned int _n_possible_arrangement_combinations;
         const char _CHAR_OPERATIONAL = '#';
         const char _CHAR_DAMAGED = '.';
         const char _CHAR_UNKNOWN = '?';
@@ -27,8 +30,11 @@ class SpringArrangement {
 
     public:
         SpringArrangement(std::string& springs, std::vector<unsigned int>& group_sizes);
-        void create_spring_arrangement_combinations(std::vector<std::string>& combs);
+        unsigned int get_n_possible_arrangement_combinations() {return _n_possible_arrangement_combinations;}
+        void create_spring_arrangement_combinations();
         void create_binary_vector_permutations(std::vector<std::string>& perms, const unsigned int n);
+        void determine_possible_arrangement_combinations();
+        bool is_valid_spring_arrangement(std::string& arrangement);
 };
 
 
@@ -37,12 +43,18 @@ SpringArrangement::SpringArrangement(std::string& springs, std::vector<unsigned 
     _group_sizes = group_sizes;
     std::vector<std::string> perms = {};
     create_binary_vector_permutations(perms, 4);
-    std::vector<std::string> combs = {};
-    create_spring_arrangement_combinations(combs);
+    create_spring_arrangement_combinations();
+    for (std::string comb : _arrangement_combinations) {
+        bool res = is_valid_spring_arrangement(comb);
+        if (res) {
+            _possible_arrangement_combinations.push_back(comb);
+        }
+    }
+    _n_possible_arrangement_combinations = _possible_arrangement_combinations.size();
 }
 
 
-void SpringArrangement::create_spring_arrangement_combinations(std::vector<std::string>& combs)
+void SpringArrangement::create_spring_arrangement_combinations()
 {
     std::vector<unsigned int> indices_unknown = {};
     std::string::iterator it = _springs.begin();
@@ -92,6 +104,48 @@ void SpringArrangement::create_binary_vector_permutations(std::vector<std::strin
         perms.push_back(bits_str.substr(bits_str.size()-n, bits_str.size()-1));
     }
 
+}
+
+
+bool SpringArrangement::is_valid_spring_arrangement(std::string& arrangement)
+{
+    if (std::count(arrangement.begin(), arrangement.end(), _CHAR_OPERATIONAL) != std::accumulate(_group_sizes.begin(), _group_sizes.end(), 0)) {
+        return false;
+    }
+    else {
+        // create pair of group of symbols in the arrangement
+        std::vector<std::pair<char, unsigned int>> list_of_pairs = {};
+        char current_char = arrangement.front();
+        unsigned int char_count = 1;
+        for (std::string::iterator it = arrangement.begin()+1; it <= arrangement.end(); it++) {
+            if (*it == current_char) {
+                char_count++;
+            }
+            else if (*it != current_char) {
+                list_of_pairs.push_back(std::make_pair(*(it-1), char_count));
+                current_char = *it;
+                char_count = 1;
+            }
+            else if (it+1 == arrangement.end()) {
+                list_of_pairs.push_back(std::make_pair(*(it-1), char_count));
+                break;
+            }
+        }
+        // go through the groups and check if they align with the given spring groups
+        // if one is found that does not align -> no possible spring arrangement
+        unsigned int spring_group_idx = 0;
+        for (auto char_and_count : list_of_pairs) {
+            if (std::get<0>(char_and_count) == _CHAR_OPERATIONAL) {
+                if (std::get<1>(char_and_count) == _group_sizes[spring_group_idx]) {
+                    spring_group_idx++;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 
