@@ -17,8 +17,6 @@ int main(int argc, char** argv)
 
     for (std::string line; std::getline(text_file, line);) {
 
-        std::cout << line << '\n';
-
         // separate values by white space
         std::istringstream string_stream(line);
         std::string springs = "";
@@ -37,10 +35,13 @@ int main(int argc, char** argv)
             }
         }
         arrangements.push_back(SpringArrangement(springs, group_sizes));
+        std::cout << line << " -> " << arrangements.back().get_n_possible_arrangement_combinations() << " possible arrangemnts\n";
     }
 
-    std::cout << "Check\n";
-
     // find the number of possible arrangements
-    // ...
+    unsigned int n_all_possible_spring_arrangements = 0;
+    for (SpringArrangement arrangement : arrangements) {
+        n_all_possible_spring_arrangements += arrangement.get_n_possible_arrangement_combinations();
+    }
+    std::cout << "-> Total number of all possible spring arrangements: " << n_all_possible_spring_arrangements << '\n';
 }
