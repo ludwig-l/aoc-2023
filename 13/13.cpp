@@ -75,7 +75,6 @@ int main(int argc, char** argv)
     for (std::vector<std::string> pattern : patterns) {
         unsigned int n_rows = pattern.size();
         unsigned int n_cols = pattern.front().size();
-        std::vector<std::pair<unsigned int, unsigned int>> possible_symmetry_centers;
         int n_lines_above = -1;
         if (n_rows % 2 != 0) {
             // making use of integer devision here
