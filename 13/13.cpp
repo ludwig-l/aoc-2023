@@ -6,20 +6,33 @@
 #include <numeric>
 
 
-const std::string INPUT_FILE = "test_input.txt";
+const std::string INPUT_FILE = "puzzle_input.txt";
 const char CHAR_ASH = '.';
 const char CHAR_ROCK = '#';
 
 
-bool is_symmetric_pattern(std::vector<std::string>& pattern, std::pair<unsigned int, unsigned int>& symmetry_center)
+bool is_symmetric_pattern(const std::vector<std::string>& pattern, const std::pair<unsigned int, unsigned int>& symmetry_center)
 {
-    /// test if there is a symmetry between the rows of the pattern, as soon as the symmetry is detected wrong false is returned
-    for (unsigned int i = 0; i < pattern.size()/2; i++) {
-        if (pattern[std::get<0>(symmetry_center)-i] != pattern[std::get<1>(symmetry_center)+i]) {
-            return false;
+    bool is_symmetrical = true;
+    unsigned int counter = 0;
+    while (is_symmetrical) {
+        if (pattern[std::get<0>(symmetry_center)-counter] == pattern[std::get<1>(symmetry_center)+counter]) {
+            //current_symmetry_center = std::make_pair(std::get<0>(current_symmetry_center)-1, std::get<1>(current_symmetry_center)+1);
+            
+            // check if the limit (top or bottom) would be reach now, if yes -> reflection found, return true
+            if ((std::get<0>(symmetry_center)-counter == 0) ||
+            (std::get<1>(symmetry_center)+counter == pattern.size()-1)) {
+                return true;    
+            }
         }
+        else {
+            is_symmetrical = false;
+        }
+
+        counter++;
     }
-    return true;
+
+    return false;
 }
 
 
@@ -77,16 +90,15 @@ int main(int argc, char** argv)
         unsigned int n_cols = pattern.front().size();
         int n_lines_above = -1;
         if (n_rows % 2 != 0) {
-            // making use of integer devision here
-            auto possible_symmetry_center_1 = std::make_pair(n_rows/2 - 1, n_rows/2);
-            auto possible_symmetry_center_2 = std::make_pair(n_rows/2, n_rows/2 + 1);
 
-            if (is_symmetric_pattern(pattern, possible_symmetry_center_1)) {
-                n_lines_above = std::get<0>(possible_symmetry_center_1) + 1;
+            // go through the different possible  symmetry centers
+            for (unsigned int i = 1; i < pattern.size()-2; i++) {
+                if (is_symmetric_pattern(pattern, std::make_pair(i, i+1))) {
+                    n_lines_above = i + 1;
+                    break;
+                }
             }
-            else if (is_symmetric_pattern(pattern, possible_symmetry_center_2)) {
-                n_lines_above = std::get<0>(possible_symmetry_center_2) + 1;
-            }
+
         }
         else {
             std::cout << "Number of rows is even. This should not happen ...\n";
@@ -98,14 +110,12 @@ int main(int argc, char** argv)
             std::vector<std::string> pattern_transposed = {};
             transpose_vector_of_strings(pattern, pattern_transposed);
 
-            // use same method like before with the rows
-            auto possible_symmetry_center_1 = std::make_pair(n_cols/2 - 1, n_cols/2);
-            auto possible_symmetry_center_2 = std::make_pair(n_cols/2, n_cols/2 + 1);
-            if (is_symmetric_pattern(pattern_transposed, possible_symmetry_center_1)) {
-                n_lines_left = std::get<0>(possible_symmetry_center_1) + 1;
-            }
-            else if (is_symmetric_pattern(pattern_transposed, possible_symmetry_center_2)) {
-                n_lines_left = std::get<0>(possible_symmetry_center_2) + 1;
+            // go through the different possible  symmetry centers
+            for (unsigned int i = 1; i < pattern_transposed.size()-2; i++) {
+                if (is_symmetric_pattern(pattern_transposed, std::make_pair(i, i+1))) {
+                    n_lines_left = i + 1;
+                    break;
+                }
             }
             std::cout << "Check\n";
         }
