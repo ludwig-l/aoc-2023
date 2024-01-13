@@ -92,7 +92,7 @@ int main(int argc, char** argv)
         if (n_rows % 2 != 0) {
 
             // go through the different possible  symmetry centers
-            for (unsigned int i = 1; i < pattern.size()-2; i++) {
+            for (unsigned int i = 0; i < pattern.size()-1; i++) {
                 if (is_symmetric_pattern(pattern, std::make_pair(i, i+1))) {
                     n_lines_above = i + 1;
                     break;
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
             transpose_vector_of_strings(pattern, pattern_transposed);
 
             // go through the different possible  symmetry centers
-            for (unsigned int i = 1; i < pattern_transposed.size()-2; i++) {
+            for (unsigned int i = 0; i < pattern_transposed.size()-1; i++) {
                 if (is_symmetric_pattern(pattern_transposed, std::make_pair(i, i+1))) {
                     n_lines_left = i + 1;
                     break;
