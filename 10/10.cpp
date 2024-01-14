@@ -185,5 +185,29 @@ int main(int argc, char** argv)
         std::cout << "Number of possible directions should be 2, is " << possible_directions.size() << '\n';
     }
 
-    std::cout << "Finished\n";
+    // go through the pipe maze step by step
+    unsigned int step_counter = 1; // initialize at 1 because one step was already made
+    std::pair<int, int> path_1_cur_pos = possible_directions[0];
+    std::pair<int, int> path_2_cur_pos = possible_directions[1];
+    std::pair<int, int> path_1_last_pos = std::make_pair(start_pos_row, start_pos_col);
+    std::pair<int, int> path_2_last_pos = std::make_pair(start_pos_row, start_pos_col);
+    while (path_1_cur_pos != path_2_cur_pos) {
+
+        // do the the step for both paths
+
+        auto tmp_1 = go_to_next_tile(diagram, path_1_last_pos, path_1_cur_pos);
+        path_1_last_pos = path_1_cur_pos;
+        path_1_cur_pos = tmp_1;
+
+        // debugging
+        std::cout << diagram[std::get<0>(path_1_cur_pos)][std::get<1>(path_1_cur_pos)] << " -> ";
+
+        auto tmp_2 = go_to_next_tile(diagram, path_2_last_pos, path_2_cur_pos);
+        path_2_last_pos = path_2_cur_pos;
+        path_2_cur_pos = tmp_2;
+
+        step_counter++;
+    }
+
+    std::cout << "-> Number of steps: " << step_counter << '\n';
 }
