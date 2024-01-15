@@ -14,9 +14,15 @@ const char CHAR_EMPTY_SPACE = '.';
 
 int main(int argc, char** argv)
 {
+    // read in file and check for file existance first
+    std::ifstream text_file(INPUT_FILE);
+    if (!text_file.good()) {
+        std::cout << "Given text file \"" << INPUT_FILE << "\" does not exist.\n";
+        return -1;
+    }
+
     // read in line by line and add the patterns to a vector
     std::vector<std::string> platform = {};
-    std::ifstream text_file(INPUT_FILE);
     for (std::string line; std::getline(text_file, line);) {
 
         platform.push_back(line);
