@@ -29,8 +29,6 @@ int main(int argc, char** argv)
 
     }
 
-    std::cout << "Check\n";
-
     // go through line by line (from top to bottom) and move each 'O' up if there is no other 'O' or '#' in the way
     for (unsigned int row = 1; row < platform.size(); row++) {
         for (unsigned int col = 0; col < platform.front().size(); col++) {
