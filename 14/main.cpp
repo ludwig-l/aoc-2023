@@ -4,9 +4,6 @@
 #include <fstream>
 
 
-const std::string INPUT_FILE = "puzzle_input.txt";
-
-
 const char CHAR_ROUND_ROCK = 'O';
 const char CHAR_CUBE_ROCK = '#';
 const char CHAR_EMPTY_SPACE = '.';
@@ -14,10 +11,14 @@ const char CHAR_EMPTY_SPACE = '.';
 
 int main(int argc, char** argv)
 {
-    // read in file and check for file existance first
-    std::ifstream text_file(INPUT_FILE);
+    // check for given input file, read in file and check for file existance first
+    if (argc <= 1) {
+        std::cout << "No input file given.\n";
+        return -1;
+    }
+    std::ifstream text_file(argv[1]);
     if (!text_file.good()) {
-        std::cout << "Given text file \"" << INPUT_FILE << "\" does not exist.\n";
+        std::cout << "Given text file \"" << argv[1] << "\" does not exist.\n";
         return -1;
     }
 
