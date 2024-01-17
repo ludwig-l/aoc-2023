@@ -24,9 +24,9 @@ namespace FileUtils {
             std::cout << "No input file given.\n";
             return InputFileStatus::no_input_given;
         }
-        std::ifstream text_file(argv[1]);
+        std::ifstream file(argv[1]);
 
-        if (!text_file.good()) {
+        if (!file.good()) {
             std::cout << "Given text file \"" << argv[1] << "\" does not exist.\n";
             return InputFileStatus::input_file_does_not_exist;
         }
