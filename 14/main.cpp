@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "../file_utils.h"
 
 
 const char CHAR_ROUND_ROCK = 'O';
@@ -11,16 +12,10 @@ const char CHAR_EMPTY_SPACE = '.';
 
 int main(int argc, char** argv)
 {
-    // check for given input file, read in file and check for file existance first
-    if (argc <= 1) {
-        std::cout << "No input file given.\n";
+    if (FileUtils::get_file_status(argc, argv) != FileUtils::InputFileStatus::ok) {
         return -1;
     }
-    std::ifstream text_file(argv[1]);
-    if (!text_file.good()) {
-        std::cout << "Given text file \"" << argv[1] << "\" does not exist.\n";
-        return -1;
-    }
+    std::fstream text_file(argv[1]);
 
     // read in line by line and add the patterns to a vector
     std::vector<std::string> platform = {};
