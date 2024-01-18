@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <numeric>
 #include "../file_utils.h"
 
 
@@ -41,5 +42,11 @@ int main(int argc, char** argv)
         }
     }
 
-    std::cout << "Check\n";
+    std::vector<unsigned int> results = {};
+    for (std::string step : initialization_sequence) {
+        unsigned int result = compute_hash_value(step);
+        results.push_back(result);
+    }
+    unsigned int sum_of_reslts = std::accumulate(results.begin(), results.end(), 0);
+    std::cout << "-> Sum of results: " << sum_of_reslts << '\n';
 }
