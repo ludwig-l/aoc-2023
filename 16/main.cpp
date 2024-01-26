@@ -26,7 +26,6 @@ const Direction DIRECTION_START = Direction::east;
 struct Movement {
     std::pair<int, int> position;
     Direction direction;
-    //Movement* next_movement = nullptr;
     Movement() : position(std::make_pair(0, 0)), direction(Direction::north) {;} // default constructor
     Movement(const std::pair<int, int>& position, const Direction& direction) : position(position), direction(direction) {;}
     bool operator==(const Movement& m) const
@@ -161,6 +160,7 @@ int main(int argc, char** argv)
 
     std::vector<Movement> movements_to_process = start_movements;
     std::vector<Movement> already_processed_movements = {};
+    // go through the movements to process as long as there are any (new ones might be added during the program run)
     while (movements_to_process.size() > 0) {
 
         // current movement that is being evaluated will be removed from the "stack"
