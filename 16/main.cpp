@@ -3,6 +3,7 @@
 #include <utility>
 #include <cassert>
 #include <algorithm>
+#include <memory>
 #include "../file_utils.h"
 
 
@@ -55,22 +56,24 @@ bool is_inside_bounds(const std::pair<int, int>& position, const std::vector<std
     }
 }
 
-void determine_next_movement_directions(const Direction previous_direction, const char object, std::vector<Direction>& next_movement_directions)
+std::unique_ptr<std::vector<Direction>> determine_next_movement_directions(const Direction previous_direction, const char object)
 {
     // given the current character and the previous movement direction determine the next movement direction(s)
 
-    assert(next_movement_directions.empty()); // expecting an empty vector for saving the results to
+    std::unique_ptr<std::vector<Direction>> next_movement_directions(new std::vector<Direction>());
+
+    assert(next_movement_directions->empty()); // expecting an empty vector for saving the results to
 
     if (object == CHAR_EMPTY_SPACE) {
-        next_movement_directions.push_back(previous_direction);
+        next_movement_directions->push_back(previous_direction);
     }
     else if (object == CHAR_SPLITTER_HOR) {
         if (previous_direction == Direction::east || previous_direction == Direction::west) {
-            next_movement_directions.push_back(previous_direction);
+            next_movement_directions->push_back(previous_direction);
         }
         else if (previous_direction == Direction::north || previous_direction == Direction::south) {
-            next_movement_directions.push_back(Direction::east);
-            next_movement_directions.push_back(Direction::west);
+            next_movement_directions->push_back(Direction::east);
+            next_movement_directions->push_back(Direction::west);
         }
         else {
             std::cerr << "No valid character detected.\n";
@@ -78,11 +81,11 @@ void determine_next_movement_directions(const Direction previous_direction, cons
     }
     else if (object == CHAR_SPLITTER_VERT) {
         if (previous_direction == Direction::north || previous_direction == Direction::south) {
-            next_movement_directions.push_back(previous_direction);
+            next_movement_directions->push_back(previous_direction);
         }
         else if (previous_direction == Direction::east || previous_direction == Direction::west) {
-            next_movement_directions.push_back(Direction::north);
-            next_movement_directions.push_back(Direction::south);
+            next_movement_directions->push_back(Direction::north);
+            next_movement_directions->push_back(Direction::south);
         }
         else {
             std::cerr << "No valid character detected.\n";
@@ -90,16 +93,16 @@ void determine_next_movement_directions(const Direction previous_direction, cons
     }
     else if (object == CHAR_MIRROR_SLASH) {
         if (previous_direction == Direction::north) {
-            next_movement_directions.push_back(Direction::east);
+            next_movement_directions->push_back(Direction::east);
         }
         else if (previous_direction == Direction::east) {
-            next_movement_directions.push_back(Direction::north);
+            next_movement_directions->push_back(Direction::north);
         }
         else if (previous_direction == Direction::south) {
-            next_movement_directions.push_back(Direction::west);
+            next_movement_directions->push_back(Direction::west);
         }
         else if (previous_direction == Direction::west) {
-            next_movement_directions.push_back(Direction::south);
+            next_movement_directions->push_back(Direction::south);
         }
         else {
             std::cerr << "No valid character detected.\n";
@@ -107,16 +110,16 @@ void determine_next_movement_directions(const Direction previous_direction, cons
     }
     else if (object == CHAR_MIRROR_BACKSLASH) {
         if (previous_direction == Direction::north) {
-            next_movement_directions.push_back(Direction::west);
+            next_movement_directions->push_back(Direction::west);
         }
         else if (previous_direction == Direction::east) {
-            next_movement_directions.push_back(Direction::south);
+            next_movement_directions->push_back(Direction::south);
         }
         else if (previous_direction == Direction::south) {
-            next_movement_directions.push_back(Direction::east);
+            next_movement_directions->push_back(Direction::east);
         }
         else if (previous_direction == Direction::west) {
-            next_movement_directions.push_back(Direction::north);
+            next_movement_directions->push_back(Direction::north);
         }
         else {
             std::cerr << "No valid character detected.\n";
@@ -126,7 +129,9 @@ void determine_next_movement_directions(const Direction previous_direction, cons
         std::cerr << "No valid character detected.\n";
     }
 
-    assert(next_movement_directions.size() <= 2);
+    assert(next_movement_directions->size() <= 2);
+
+    return next_movement_directions;
 }
 
 
@@ -150,8 +155,7 @@ int main(int argc, char** argv)
     std::vector<std::string> energized_tiles(contraption.size(), row_of_empty_spaces);
 
     // construct first movement object
-    std::vector<Direction> first_movement_directions = {};
-    determine_next_movement_directions(DIRECTION_START, contraption[std::get<0>(POS_START)][std::get<1>(POS_START)], first_movement_directions);
+    std::vector<Direction> first_movement_directions = *determine_next_movement_directions(DIRECTION_START, contraption[std::get<0>(POS_START)][std::get<1>(POS_START)]);
     std::vector<Movement> start_movements = {};
     for (Direction direction : first_movement_directions) {
         Movement movement(POS_START, direction);
@@ -191,8 +195,7 @@ int main(int argc, char** argv)
 
         if (is_inside_bounds(new_position, contraption)) {
 
-            std::vector<Direction> next_movement_directions = {};
-            determine_next_movement_directions(current_movement.direction, contraption[std::get<0>(new_position)][std::get<1>(new_position)], next_movement_directions);
+            std::vector<Direction> next_movement_directions = *determine_next_movement_directions(current_movement.direction, contraption[std::get<0>(new_position)][std::get<1>(new_position)]);
 
             // put all available next steps (there should be either one or two) to the object storing the movements to still process
             for (Direction direction : next_movement_directions) {
