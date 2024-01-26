@@ -211,5 +211,10 @@ int main(int argc, char** argv)
 
     }
 
-    std::cout << "Finished\n";
+    // count total number of energized tiles
+    unsigned int n_energized_tiles = 0;
+    for (std::string row : energized_tiles) {
+        n_energized_tiles = std::accumulate(row.begin(), row.end(), n_energized_tiles);
+    }
+    std::cout << "-> Total number of energized tiles:\n" << n_energized_tiles << '\n';
 }
