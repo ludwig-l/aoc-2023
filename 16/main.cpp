@@ -27,6 +27,8 @@ struct Movement {
     std::pair<int, int> position;
     Direction direction;
     //Movement* next_movement = nullptr;
+    Movement() : position(std::make_pair(0, 0)), direction(Direction::north) {;} // default constructor
+    Movement(const std::pair<int, int>& position, const Direction& direction) : position(position), direction(direction) {;}
     bool operator==(const Movement& m) const
     {
         if ((position == m.position) && (direction == m.direction)) {
@@ -192,9 +194,7 @@ int main(int argc, char** argv)
 
             // put all available next steps (there should be either one or two) to the object storing the movements to still process
             for (Direction direction : next_movement_directions) {
-                Movement movement;
-                movement.direction = direction;
-                movement.position = new_position;
+                Movement movement(new_position, direction);
                 // add next movement to movements to process list only if they did not appear already
                 if (std::find(already_processed_movements.begin(), already_processed_movements.end(), movement) == already_processed_movements.end())
                     {
