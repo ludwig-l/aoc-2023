@@ -72,7 +72,7 @@ void determine_next_movement_directions(const Direction previous_direction, cons
             next_movement_directions.push_back(Direction::west);
         }
         else {
-            std::cout << "No valid character detected.\n";
+            std::cerr << "No valid character detected.\n";
         }
     }
     else if (object == CHAR_SPLITTER_VERT) {
@@ -84,7 +84,7 @@ void determine_next_movement_directions(const Direction previous_direction, cons
             next_movement_directions.push_back(Direction::south);
         }
         else {
-            std::cout << "No valid character detected.\n";
+            std::cerr << "No valid character detected.\n";
         }
     }
     else if (object == CHAR_MIRROR_SLASH) {
@@ -101,7 +101,7 @@ void determine_next_movement_directions(const Direction previous_direction, cons
             next_movement_directions.push_back(Direction::south);
         }
         else {
-            std::cout << "No valid character detected.\n";
+            std::cerr << "No valid character detected.\n";
         }
     }
     else if (object == CHAR_MIRROR_BACKSLASH) {
@@ -118,11 +118,11 @@ void determine_next_movement_directions(const Direction previous_direction, cons
             next_movement_directions.push_back(Direction::north);
         }
         else {
-            std::cout << "No valid character detected.\n";
+            std::cerr << "No valid character detected.\n";
         }
     }
     else {
-        std::cout << "No valid character detected.\n";
+        std::cerr << "No valid character detected.\n";
     }
 
     assert(next_movement_directions.size() <= 2);
@@ -181,7 +181,7 @@ int main(int argc, char** argv)
             new_position = std::make_pair(std::get<0>(current_movement.position), std::get<1>(current_movement.position) - 1);
         }
         else {
-            std::cout << "Error.\n";
+            std::cerr << "Error.\n";
             return -1;
         }
 
