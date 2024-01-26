@@ -2,6 +2,7 @@
 #include <string>
 #include <utility>
 #include <cassert>
+#include <algorithm>
 #include "../file_utils.h"
 
 
@@ -155,10 +156,12 @@ int main(int argc, char** argv)
     //Movement current_movement = DIRECTION_START; 
     //std::vector<Direction> next_movement_directions = {};
     std::vector<Movement> movements_to_process = {start_movement};
+    std::vector<Movement> already_processed_movements = {};
     while (movements_to_process.size() > 0) {
 
         // current movement that is being evaluated will be removed from the "stack"
         Movement current_movement = movements_to_process.back();
+        already_processed_movements.push_back(current_movement);
         movements_to_process.pop_back();
 
         // energize current tile
@@ -192,7 +195,11 @@ int main(int argc, char** argv)
                 Movement movement;
                 movement.direction = direction;
                 movement.position = new_position;
-                movements_to_process.push_back(movement);
+                // add next movement to movements to process list only if they did not appear already
+                if (std::find(already_processed_movements.begin(), already_processed_movements.end(), movement) == already_processed_movements.end())
+                    {
+                        movements_to_process.push_back(movement);
+                    }
             }
         }
 
