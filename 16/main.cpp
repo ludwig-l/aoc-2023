@@ -40,7 +40,8 @@ struct Movement {
     }
 };
 
-bool is_inside_bounds(const std::pair<int, int>& position, const std::vector<std::string>& field)
+template <typename T>
+bool is_inside_bounds(const std::pair<int, int>& position, const T& field)
 {
     // check if the given position is inside the field
 
