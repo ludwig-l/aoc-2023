@@ -150,14 +150,16 @@ int main(int argc, char** argv)
     std::string row_of_empty_spaces(contraption.front().size(), CHAR_EMPTY_SPACE);
     std::vector<std::string> energized_tiles(contraption.size(), row_of_empty_spaces);
 
-    // construc first struct object
-    Movement start_movement;
-    start_movement.position = POS_START;
-    start_movement.direction = DIRECTION_START;
+    // construct first movement object
+    std::vector<Direction> first_movement_directions = {};
+    determine_next_movement_directions(DIRECTION_START, contraption[std::get<0>(POS_START)][std::get<1>(POS_START)], first_movement_directions);
+    std::vector<Movement> start_movements = {};
+    for (Direction direction : first_movement_directions) {
+        Movement movement(POS_START, direction);
+        start_movements.push_back(movement);
+    }
 
-    //Movement current_movement = DIRECTION_START; 
-    //std::vector<Direction> next_movement_directions = {};
-    std::vector<Movement> movements_to_process = {start_movement};
+    std::vector<Movement> movements_to_process = start_movements;
     std::vector<Movement> already_processed_movements = {};
     while (movements_to_process.size() > 0) {
 
