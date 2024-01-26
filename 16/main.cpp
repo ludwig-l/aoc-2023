@@ -26,6 +26,15 @@ struct Movement {
     std::pair<int, int> position;
     Direction direction;
     //Movement* next_movement = nullptr;
+    bool operator==(const Movement& m) const
+    {
+        if ((position == m.position) && (direction == m.direction)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 };
 
 bool is_inside_bounds(const std::pair<int, int>& position, const std::vector<std::string>& field)
