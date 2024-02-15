@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    if (FileUtils::get_file_status(argc, argv) == FileUtils::InputFileStatus::ok) {
+    if (FileUtils::get_file_status(argc, argv) != FileUtils::InputFileStatus::ok) {
         return -1;
     }
     std::fstream text_file(argv[1]);
