@@ -1,5 +1,6 @@
 #include <vector>
 #include "../file_utils.h"
+#include "node.h"
 
 
 int main(int argc, char **argv)
