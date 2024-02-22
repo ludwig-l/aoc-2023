@@ -21,7 +21,11 @@ class Node {
                 std::cout << "Warning: Node set to be both start and end node. This does not make sense for this application.\n";
             }
         }
-
+        void set_is_start_node(bool val) {_is_start_node = val;}
+        void set_is_end_node(bool val) {_is_end_node = val;}
+        void set_pos(std::pair<unsigned int, unsigned int>& val) {_pos = val;}
+        void set_adjacent_nodes(std::vector<Node*>& val) {_adjacent_nodes = val;}
+        void set_cost(unsigned int val) {_cost = val;}
 };
 
 #endif
